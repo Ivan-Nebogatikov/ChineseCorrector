@@ -10,12 +10,13 @@ from multiprocessing import Pool, Pipe
 import jieba
 import CharSimilarity
 import kenlm
+import os
 import itertools
 
 '''参数'''
 SIMI_DIC_PATH = './pd_simi_dic.pkl' # 相近字字典文件路径
-LANG_MODEL_PATH = '../data/weibo_contents_words.bin' # 语言模型文件路径
-VOCAB_PATH = '../data/weibo_contents_words.set'
+LANG_MODEL_PATH = './data/weibo_contents_words.bin' # 语言模型文件路径
+VOCAB_PATH = './data/weibo_contents_words.set'
 MAX_MAYBE_WRONG_SIZE = 6 # 错字窗口最大值
 N_GRAM = 3
 SIMI_THRESHOLD = 0.5 # 超过阈值的相近字就会被匹配
