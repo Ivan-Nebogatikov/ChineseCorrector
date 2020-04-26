@@ -1,5 +1,38 @@
 #README
 
+Current instanse:
+
+HttpPost
+
+http://ec2-18-223-97-193.us-east-2.compute.amazonaws.com:5000/correct
+
+Body
+```JavaScript
+{
+	"text" : "我已经等猴多时了。"
+}
+```
+
+Response:
+```JavaScript
+{
+   "best": "我已经华新水泥了。",
+   "words": [
+      "我",
+      "已经",
+      [
+         "华新水泥",
+         "眼见为实",
+         "7460"
+      ],
+      "了",
+      "。"
+   ]
+}
+```
+
+Original info
+
 Author: Hanwen, LIU - HKUST
 
 A Chinese words correction system with detection and correction functions based on n-gram language model and Chinese text segmentation. The detection core focused on the continuous singletons while the correction core focuses on the the shape and pronunciation similarity of characters.
