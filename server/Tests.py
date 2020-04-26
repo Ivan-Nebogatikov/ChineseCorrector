@@ -17,11 +17,11 @@ def print_all(text):
         print(word)
 
 
-# '我已经等猴多时了.' Wǒ yǐjīng děng hóu duōshíliǎo. Я долго ждал обезьяну.
-def main():
-    text = '我已经等猴多时了.'
-    print_all(text)
-
-
-if __name__ == '__main__':
-    main()
+# # '我已经等猴多时了.' Wǒ yǐjīng děng hóu duōshíliǎo. Я долго ждал обезьяну.
+# def main():
+#     text = '我已经等猴多时了.'
+#     print_all(text)
+#
+#
+# if __name__ == '__main__':
+#     main()
