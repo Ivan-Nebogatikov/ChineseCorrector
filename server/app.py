@@ -2,23 +2,33 @@ from flask import Flask
 from flask import request
 import json
 import boto3
-#import Checker
+
+import Checker
 
 app = Flask(__name__)
 
 client = boto3.Session(
-        aws_access_key_id='AKIA6RTUQT2ZXZIL2HMX',
-        aws_secret_access_key='a'
-    )
+    aws_access_key_id='AKIA6RTUQT2ZXZIL2HMX',
+    aws_secret_access_key='a'
+)
 
 dynamodb = client.resource('dynamodb', region_name='us-east-2')
 table = dynamodb.Table('CachedCorrections')
 
-@app.route('/correct', methods=['POST'])
-def correct():
 
-    z = request.json
-    words = ['a']#list(Checker.correct_core(z["text"]))
+@app.route('/correct/best', methods=['POST'])
+def correct():
+    body = request.json
+
+    item = table.get_item(
+        Key={
+            'Input': body["text"]
+        }
+    )
+    if 'Item' in item:
+        return json.dumps({'best': item['Item']['Corrected']}, ensure_ascii=False, indent=2).encode('utf8')
+
+    words = list(Checker.correct_core(body["text"]))
 
     best_match = ''
     for word in words:
@@ -27,15 +37,23 @@ def correct():
         else:
             best_match += word
 
-    return json.dumps({'best' : best_match, 'words': words}, ensure_ascii=False, indent=2).encode('utf8')
+    table.put_item(
+        Item={
+            'Input': body["text"],
+            'Corrected': best_match
+        }
+    )
+
+    return json.dumps({'best': best_match}, ensure_ascii=False, indent=2).encode('utf8')
+
+
+@app.route('/correct/all', methods=['POST'])
+def correct():
+    body = request.json
+    words = list(Checker.correct_core(body["text"]))
+
+    return json.dumps({'all': words }, ensure_ascii=False, indent=2).encode('utf8')
 
 
 if __name__ == '__main__':
-
-    table.put_item(
-        Item={
-            'Input': '我不知都',
-            'Corrected': "我不知道"
-        }
-    )
     app.run(host='0.0.0.0', debug=True)
