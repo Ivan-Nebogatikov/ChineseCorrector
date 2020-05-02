@@ -4,7 +4,7 @@ Current instanse:
 
 HttpPost
 
-http://ec2-18-223-97-193.us-east-2.compute.amazonaws.com:5000/correct
+http://ec2-18-223-97-193.us-east-2.compute.amazonaws.com:5000/correct/best
 
 Body
 ```JavaScript
@@ -16,18 +16,34 @@ Body
 Response:
 ```JavaScript
 {
-   "best": "我已经华新水泥了。",
-   "words": [
-      "我",
-      "已经",
-      [
-         "华新水泥",
-         "眼见为实",
-         "7460"
-      ],
-      "了",
-      "。"
-   ]
+"best": "我已经等候多时了。"
+}
+```
+
+HttpPost
+
+http://ec2-18-223-97-193.us-east-2.compute.amazonaws.com:5000/correct/all
+
+Body
+```JavaScript
+{
+	"text" : "我已经等猴多时了。"
+}
+```
+
+Response:
+```JavaScript
+{
+"all": [
+"我",
+"已经",
+[
+"华新水泥",
+"眼见为实"
+],
+"了",
+"。"
+]
 }
 ```
 
