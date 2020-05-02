@@ -17,7 +17,7 @@ table = dynamodb.Table('CachedCorrections')
 
 
 @app.route('/correct/best', methods=['POST'])
-def correct():
+def correctBest():
     body = request.json
 
     item = table.get_item(
@@ -48,7 +48,7 @@ def correct():
 
 
 @app.route('/correct/all', methods=['POST'])
-def correct():
+def correctAll():
     body = request.json
     words = list(Checker.correct_core(body["text"]))
 
