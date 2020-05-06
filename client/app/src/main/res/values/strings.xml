@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CloudCorrector</string>
+    <string name="service_label">Chinese Cloud Spell Checker</string>
+</resources>
