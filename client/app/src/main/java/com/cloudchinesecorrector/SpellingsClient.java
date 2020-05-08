@@ -31,7 +31,7 @@ public class SpellingsClient extends Activity implements SpellCheckerSession.Spe
         setContentView(suggestions);
         setContentView(edit);
 
-        fetchSuggestionsFor("Peter livs in Brlin");
+        fetchSuggestionsFor("我不知道");
     }
 
     @Override

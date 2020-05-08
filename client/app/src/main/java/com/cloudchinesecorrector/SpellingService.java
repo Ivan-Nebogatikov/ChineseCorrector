@@ -6,6 +6,20 @@ import android.view.textservice.SpellCheckerSession;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
+import androidx.annotation.RequiresPermission;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.Console;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +36,56 @@ public class SpellingService extends SpellCheckerService {
 
         }
 
+        private static final String url = "http://ec2-18-223-97-193.us-east-2.compute.amazonaws.com:5000/correct/best";
+
+        private String DoCloudCorrect(String input) {
+            HttpURLConnection connection = null;
+            try {
+                String inputJson = "{ \"text\": \"" + input + "\"}";
+                //Create connection
+                URL url = new URL(MySpellingSession.url);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type",
+                        "application/json");
+
+                connection.setRequestProperty("Content-Length",
+                        Integer.toString(inputJson.getBytes("UTF-8").length));
+                connection.setUseCaches(false);
+                connection.setDoOutput(true);
+
+                //Send request
+                DataOutputStream wr = new DataOutputStream(
+                        connection.getOutputStream());
+                wr.write(inputJson.getBytes("UTF-8"));
+                wr.close();
+
+                //Get Response
+                InputStream is = connection.getInputStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+                String line;
+                while ((line = rd.readLine()) != null) {
+                    response.append(line);
+                    response.append('\r');
+                }
+                rd.close();
+                return response.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        }
+
         @Override
         public SuggestionsInfo onGetSuggestions(TextInfo textInfo, int suggestionsLimit) {
+
             String word = textInfo.getText();
+            String res = DoCloudCorrect(word);
             int attr = SuggestionsInfo.RESULT_ATTR_LOOKS_LIKE_TYPO;
             String suggestions[] = null;
             if(word.equals("Peter")){
