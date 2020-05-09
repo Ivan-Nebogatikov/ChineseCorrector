@@ -8,6 +8,11 @@ import android.view.textservice.TextInfo;
 
 import androidx.annotation.RequiresPermission;
 
+import org.json.JSONException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -86,10 +91,19 @@ public class SpellingService extends SpellCheckerService {
 
             String word = textInfo.getText();
             String res = DoCloudCorrect(word);
+            JSONParser parser = new JSONParser();
+            String suggestion = null;
+            try {
+                JSONObject json = (JSONObject) parser.parse(res);
+                suggestion = (String) json.get("best");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             int attr = SuggestionsInfo.RESULT_ATTR_LOOKS_LIKE_TYPO;
             String suggestions[] = null;
-            if(word.equals("Peter")){
-                suggestions = new String[]{"Pedro", "Pietro", "Petar", "Pierre", "Petrus"};
+            if(suggestion != null){
+                suggestions = new String[]{suggestion};
             }else{
                 suggestions = new String[]{};
             }

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <spell-checker xmlns:android="http://schemas.android.com/apk/res/android"
     android:label="@string/service_label"
+    android:settingsActivity="com.cloudchinesecorrector.SpellingsClient"
     >
 
+    <!-- https://stackoverflow.com/questions/7973023/what-is-the-list-of-supported-languages-locales-on-android -->
     <subtype
-        android:label="English"
-        android:subtypeLocale="en"
+        android:label="Chinese"
+        android:subtypeLocale="zh_"
         />
 
 </spell-checker>

@@ -22,14 +22,9 @@ public class SpellingsClient extends Activity implements SpellCheckerSession.Spe
         super.onCreate(savedInstanceState);
 
         suggestions = new TextView(this);
-        EditText edit = new EditText(this);
         suggestions.setPadding(16,16,16,360);
         suggestions.setTextSize(20);
-        edit.setPadding(50, 320, 50, 50);
-        edit.setTextSize(20);
-        edit.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         setContentView(suggestions);
-        setContentView(edit);
 
         fetchSuggestionsFor("我不知道");
     }
@@ -71,7 +66,7 @@ public class SpellingsClient extends Activity implements SpellCheckerSession.Spe
 
     private void fetchSuggestionsFor(String input){
         TextServicesManager tsm = (TextServicesManager) getSystemService(TEXT_SERVICES_MANAGER_SERVICE);
-        SpellCheckerSession session = tsm.newSpellCheckerSession(null, Locale.ENGLISH, this, true);
+        SpellCheckerSession session = tsm.newSpellCheckerSession(null, Locale.CHINESE, this, true);
 
         session.getSentenceSuggestions(new TextInfo[]{ new TextInfo(input) }, NUMBER_OF_SUGGESTIONS);
     }
