@@ -47,6 +47,10 @@ Response:
 }
 ```
 
+You could use the client application in you android device. 
+You need to build the apk, install it and change system spell checker to new one.
+
+
 Original info
 
 Author: Hanwen, LIU - HKUST
