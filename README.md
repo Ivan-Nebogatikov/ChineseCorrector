@@ -50,6 +50,24 @@ Response:
 You could use the client application in you android device. 
 You need to build the apk, install it and change system spell checker to new one.
 
+You could rate the correction with android application UI.
+
+Details(It is serverless aws lambda funtion to update the DB):
+
+HttpPost
+
+https://1shknletu9.execute-api.us-east-2.amazonaws.com/default/serverlessrepo-RateCorrection-helloworldpython3-WBC9LG4EQ4KT
+
+```JavaScript
+{
+	"Id" : "123",
+	"Corrected" : "我不知道",
+	"Input" : "我不知道",
+	"IsLike" : false
+}
+```
+
+-----------------------
 
 Original info
 
