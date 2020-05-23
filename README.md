@@ -67,6 +67,8 @@ https://1shknletu9.execute-api.us-east-2.amazonaws.com/default/serverlessrepo-Ra
 }
 ```
 
+The worst week corrections are sended to my email to update the correction model. Thank you!
+
 -----------------------
 
 Original info
